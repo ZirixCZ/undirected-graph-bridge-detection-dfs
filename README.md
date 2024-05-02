@@ -9,5 +9,37 @@ The algorithm assigns discovery times during a depth-first search and updates th
 #### History of the algorithm
 The algorithm was introduced by Robert Tarjan in 1974. One of the earliest important uses was in the optimization of computer networks and the design of reliable network systems.
 
+#### Complexity
+Time: O(V+E)
+
+Space: O(V)
+
+#### Code showcase
+```ts
+for (let childNode of this.adj2DArray[node]) {
+      if (!visitedNodes[childNode]) {
+        parent[childNode] = node;
+        this.findBridges(
+          childNode,
+          visitedNodes,
+          discoveryTimes,
+          lowestTimeToReach,
+          parent,
+        );
+        lowestTimeToReach[node] = Math.min(
+          lowestTimeToReach[node],
+          lowestTimeToReach[childNode],
+        );
+        if (lowestTimeToReach[childNode] > discoveryTimes[node]) {
+          console.log(`${node} ${childNode}\n`);
+        }
+      } else if (childNode !== parent[node]) {
+        lowestTimeToReach[node] = Math.min(
+          lowestTimeToReach[node],
+          discoveryTimes[childNode],
+        );
+      }
+    }
+```
 #### Class diagram
 <img width="400" alt="Screenshot 2024-05-02 at 21 40 31" src="https://github.com/ZirixCZ/undirected-graph-bridge-detection-dfs/assets/49836430/ac9e5ae9-714c-4a31-af80-cb00bcc01e2e">
